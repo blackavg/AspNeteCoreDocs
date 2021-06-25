@@ -153,6 +153,9 @@ Client-side load balancing is extensible:
 * Implement `Resolver` to create a custom resolver and resolve addresses from a new data source.
 * Implement `LoadBalancer` to create a custom load balancer with new load balancing behavior.
 
+> [!IMPORTANT]
+> Client-side load balancing APIs are experimental. They can change without notice.
+
 ### Create a custom resolver
 
 A resolver:
@@ -194,9 +197,9 @@ public class FileResolverFactory : ResolverFactory
     // Create a FileResolver when the URI has a 'file' scheme.
     public override string Name => "file";
 
-    public override Resolver Create(Uri address, ResolverOptions options)
+    public override Resolver Create(ResolverOptions options)
     {
-        return new FileResolver(address);
+        return new FileResolver(options.Address);
     }
 }
 ```
@@ -255,19 +258,12 @@ public class RandomBalancer : SubchannelsLoadBalancer
 
 public class RandomBalancerFactory : LoadBalancerFactory
 {
-    private readonly ILoggerFactory _loggerFactory;
-
     // Create a RandomBalancer when the name is 'random'.
     public override string Name => "random";
 
-    public RandomBalancerFactory(ILoggerFactory loggerFactory)
+    public override LoadBalancer Create(LoadBalancerOptions option)
     {
-        _loggerFactory = loggerFactory;
-    }
-
-    public override LoadBalancer Create(IChannelControlHelper controller, IDictionary<string, object> options)
-    {
-        return new RandomBalancer(controller, _loggerFactory);
+        return new RandomBalancer(options.Controller, options.LoggerFactory);
     }
 }
 ```
