@@ -154,7 +154,7 @@ Client-side load balancing is extensible:
 * Implement `LoadBalancer` to create a custom load balancer with new load balancing behavior.
 
 > [!IMPORTANT]
-> Client-side load balancing APIs are experimental. They can change without notice.
+> The APIs used to extend client-side load balancing are experimental. They can change without notice.
 
 ### Create a custom resolver
 
