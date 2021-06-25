@@ -20,6 +20,9 @@ Client-side load balancing requires:
 <!-- TODO: Fix version -->
 * [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) version XXXX or later.
 
+> [!IMPORTANT]
+> This feature is in preview. It is currently only available in pre-release versions of `Grpc.Net.Client` on NuGet.org.
+
 ## Configure gRPC client-side load balancing
 
 Client-side load balancing is configured when a channel is created. The two components to consider when using load balancing:
